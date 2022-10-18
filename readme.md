@@ -20,3 +20,5 @@ This program comapares the entire pdf file with each other by keeping the first 
 <b>
 This program uses basic python library functions as well most importantly PyPDF2
 </b>
+
+### Maintained by: [Mohamed Ayaan](https://github.com/Mohamed-Ayaan358)
