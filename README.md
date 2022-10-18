@@ -14,3 +14,5 @@
 - [ ] Allow for different file formats using.
 - [ ] Find more efficient and accurate way to detect differences between pdf files rather than finding mistakes.
 - [ ] Add a function to tell how similiar the documents are, using probability and other tools which can be used for this purpose.
+
+### Maintained by: [Mohamed Ayaan](https://github.com/Mohamed-Ayaan358)
