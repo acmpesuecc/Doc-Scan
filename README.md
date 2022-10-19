@@ -5,8 +5,7 @@
 
 ### Libraries needed for the program are:-
 
-1. import pdf2text
-2. import comparetext
+1. pip install PyPDF2
 
 ### Additional features to be added:-
 
