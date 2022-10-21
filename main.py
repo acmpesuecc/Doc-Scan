@@ -1,9 +1,64 @@
+
 from pdf2text import pdf2text
-# from comparetext import comparetext
+import cv2
+import numpy as np
+from comparejpg import compare_images
 from tkinter import *
 
 root = Tk()
 root.geometry("800x800")
+
+import collections 
+import collections.abc
+from pptx import Presentation
+
+
+def compare_images(img1, img2):
+    a = cv2.imread(img1)
+    b = cv2.imread(img2)
+    difference = cv2.subtract(a, b)    
+    result = not np.any(difference)
+    if result is True:
+        print("Pictures are the same")
+        Label(root,text=f"Pictures are the same").pack()
+    else:
+        cv2.imwrite("difference.png", difference )
+        Label(root,text=f"Pictures are different, the difference is stored as ed.png").pack()
+        
+
+def compare_ppt(p1,p2):
+    
+    ppt1 = Presentation(p1)
+    ppt2 = Presentation(p2)
+
+    text_runs1 = []
+    text_runs2 = []
+
+    for slide in ppt1.slides:
+        for shape in slide.shapes:
+            if not shape.has_text_frame:
+                continue
+            for paragraph in shape.text_frame.paragraphs:
+                for run in paragraph.runs:
+                    text_runs1.append(run.text)
+    for slide in ppt2.slides:
+        for shape in slide.shapes:
+            if not shape.has_text_frame:
+                continue
+            for paragraph in shape.text_frame.paragraphs:
+                for run in paragraph.runs:
+                    text_runs2.append(run.text)
+    if collections.Counter(text_runs1) == collections.Counter(text_runs2):
+        Label(root,text=f"The presentations are same").pack()
+        
+    else:
+        Label(root,text=f"The presentations are different").pack()
+        Label(root,text=f"The differences are : ").pack()
+        Label(root,text=collections.Counter(text_runs1) - collections.Counter(text_runs2)).pack()
+       
+
+
+
 
 def comparetext(a, b):
     file_1 = open(a, 'r')
@@ -87,6 +142,17 @@ def get_data():
             comparetext(file1_entry.get(),file2_entry.get())
 
         Button(root,text = "Enter", command= textcheck).pack()
+
+    elif(choice == "ppt"):
+        def pptcheck():
+            compare_ppt(file1_entry.get(),file2_entry.get())
+
+        Button(root,text = "Enter", command= pptcheck).pack()
+    
+    elif(choice == 'image'):
+        def imagecheck():
+            compare_images(file1_entry.get(),file2_entry.get())
+        Button(root,text = "Enter", command= imagecheck).pack()
 
 
 
