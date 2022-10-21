@@ -1,4 +1,8 @@
-def comparetext(a, b):
+from tkinter import *
+
+
+def comparetext(a, b,root):
+    Label(root,text=f"Number of mistakes are :").pack()
 
     file_1 = open(a, 'r')
     file_2 = open(b, 'r')
@@ -13,6 +17,7 @@ def comparetext(a, b):
     with open('text1.txt') as file1:
         with open('text2.txt') as file2:
             same = set(file1).intersection(file2)
+
 
     print("Common Lines in Both Files")
 

@@ -23,6 +23,7 @@ def pdf2text(c, d):
             print(((pageObj1.extractText()).split())[
                   i], ((pageObj2.extractText()).split())[i], "There is a mistake at", i, "word")
     rem = l-count
-    print("The number of mistakes are : ", rem)
+    # print("The number of mistakes are : ", rem)
     pdfFileObj1.close()
     pdfFileObj2.close()
+    return rem
