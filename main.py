@@ -20,7 +20,7 @@ def comparetext(a, b):
         with open('text2.txt') as file2:
             same = set(file1).intersection(file2)
 
-    # print("Common Lines in Both Files")
+    #print("Common Lines in Both Files")
     Label(root,text=f"Common Lines in Both Files").pack()
 
     for line in same:
