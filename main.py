@@ -6,28 +6,31 @@ from comparejpg import compare_images
 from tkinter import *
 
 root = Tk()
-root.geometry("800x800")
-
-import collections 
-import collections.abc
-from pptx import Presentation
+root.geometry("600x800")
+bg = PhotoImage(file="DOC-SCAN Tkinter UI.png")
+label1 = Label(root, image=bg)
+label1.place(x=0, y=0)
+root.configure(bg="white")
+import collections  # noqa
+import collections.abc  # noqa
+from pptx import Presentation  # noqa
 
 
 def compare_images(img1, img2):
     a = cv2.imread(img1)
     b = cv2.imread(img2)
-    difference = cv2.subtract(a, b)    
+    difference = cv2.subtract(a, b)
     result = not np.any(difference)
     if result is True:
         print("Pictures are the same")
-        Label(root,text=f"Pictures are the same").pack()
+        Label(root, text=f"Pictures are the same", font=("Calibri", 15), bg="white").place(x=200, y=600)
     else:
-        cv2.imwrite("difference.png", difference )
-        Label(root,text=f"Pictures are different, the difference is stored as ed.png").pack()
-        
+        cv2.imwrite("difference.png", difference)
+        Label(root, text=f"Pictures are different, the difference is stored as ed.png", font=("Calibri", 15), bg="white").pack()
 
-def compare_ppt(p1,p2):
-    
+
+def compare_ppt(p1, p2):
+
     ppt1 = Presentation(p1)
     ppt2 = Presentation(p2)
 
@@ -49,15 +52,12 @@ def compare_ppt(p1,p2):
                 for run in paragraph.runs:
                     text_runs2.append(run.text)
     if collections.Counter(text_runs1) == collections.Counter(text_runs2):
-        Label(root,text=f"The presentations are same").pack()
-        
+        Label(root, text=f"The presentations are same", font=("Calibri", 15), bg="white").place(x=200, y=600)
+
     else:
-        Label(root,text=f"The presentations are different").pack()
-        Label(root,text=f"The differences are : ").pack()
-        Label(root,text=collections.Counter(text_runs1) - collections.Counter(text_runs2)).pack()
-       
-
-
+        Label(root, text=f"The presentations are different", font=("Calibri", 15), bg="white").place(x=200, y=600)
+        Label(root, text=f"The differences are : ", font=("Calibri", 15), bg="white").place(x=200, y=630)
+        Label(root, text=collections.Counter(text_runs1) - collections.Counter(text_runs2), font=("Calibri", 15), bg="white").place(x=200, y=640)
 
 
 def comparetext(a, b):
@@ -75,15 +75,15 @@ def comparetext(a, b):
         with open('text2.txt') as file2:
             same = set(file1).intersection(file2)
 
-    #print("Common Lines in Both Files")
-    Label(root,text=f"Common Lines in Both Files").pack()
+    # print("Common Lines in Both Files")
+    Label(root, text=f"Common Lines in Both Files", font=("Calibri", 15), bg="white").place(x=200, y=600)
 
     for line in same:
         # print(line, end='')
-        Label(root,text=f"{line} ").pack()
+        Label(root, text=f"{line} ", font=("Calibri", 15), bg="white").pack()
 
     print('\n')
-    Label(root,text=f"Difference Lines in Both Files").pack()
+    Label(root, text=f"Difference Lines in Both Files", font=("Calibri", 15), bg="white").place(x=200, y=600)
     # print("Difference Lines in Both Files")
     print('\n')
     while file_1_line != '' or file_2_line != '':
@@ -95,17 +95,17 @@ def comparetext(a, b):
 
             if file_1_line == '':
                 # print("file1-", "Line-%d" % line_no, file_1_line)
-                Label(root,text=f"File1- {line_no} Line- {file_1_line}").pack()
+                Label(root, text=f"File1- {line_no} Line- {file_1_line}", font=("Calibri", 15), bg="white").place(x=200, y=620)
             else:
                 # print("file1-", "Line-%d" % line_no, file_1_line)
-                Label(root,text=f"File1- {line_no} Line- {file_1_line}").pack()
+                Label(root, text=f"File1- {line_no} Line- {file_1_line}", font=("Calibri", 15), bg="white").place(x=200, y=620)
 
             if file_2_line == '':
                 # print("file2-", "Line-%d" % line_no, file_2_line)
-                Label(root,text=f"File2- {line_no} Line- {file_2_line}").pack()
+                Label(root, text=f"File2- {line_no} Line- {file_2_line}", font=("Calibri", 15), bg="white").place(x=200, y=640)
             else:
                 # print("file2-", "Line-%d" % line_no, file_2_line)
-                Label(root,text=f"File2- {line_no} Line- {file_2_line}").pack()
+                Label(root, text=f"File2- {line_no} Line- {file_2_line}", font=("Calibri", 15), bg="white").place(x=200, y=640)
 
             print()
 
@@ -118,56 +118,46 @@ def comparetext(a, b):
     file_2.close()
 
 
-
 def get_data():
     choice = choice_entry.get()
-    file1_entry = Label(root,text="Enter File 1 Name :")
-    file1_entry.pack()
-    file1_entry = Entry(root, width= 40)
-    file1_entry.pack()
+    file1_label = Label(root, text="Enter File 1 Name", font=("Calibri", 15), bg="white").place(x=200, y=330)
+    file1_entry = Entry(root, width=20, font=("Calibri", 15))
+    file1_entry.place(x=200, y=370)
 
-    file2_entry = Label(root,text="Enter File 2 Name :")
-    file2_entry.pack()
-    file2_entry = Entry(root, width= 40)
-    file2_entry.pack()
-    if(choice == "pdf"):
+    file2_label = Label(root, text="Enter File 2 Name", font=("Calibri", 15), bg="white").place(x=200, y=430)
+    file2_entry = Entry(root, width=20, font=("Calibri", 15))
+    file2_entry.place(x=200, y=470)
+    if(choice == "PDF"):
         def pdf_check():
-            out = pdf2text(file1_entry.get(),file2_entry.get())
-            Label(root,text=f"Number of mistakes are : {out}").pack()
-        
-        Button(root,text = "Enter", command= pdf_check).pack()
+            out = pdf2text(file1_entry.get(), file2_entry.get())
+            Label(root, text=f"Number of mistakes are : {out}").pack()
 
-    elif(choice == "text"):
+        Button(root, text="Enter", command=pdf_check, bg="white", width=15, border=1, font=("Calibri", 15)).place(x=220, y=530)
+
+    elif(choice == "TEXT"):
         def textcheck():
-            comparetext(file1_entry.get(),file2_entry.get())
+            comparetext(file1_entry.get(), file2_entry.get())
 
-        Button(root,text = "Enter", command= textcheck).pack()
+        Button(root, text="Enter", command=textcheck, bg="white", width=15, border=1, font=("Calibri", 15)).place(x=220, y=530)
 
-    elif(choice == "ppt"):
+    elif(choice == "PPT"):
         def pptcheck():
-            compare_ppt(file1_entry.get(),file2_entry.get())
+            compare_ppt(file1_entry.get(), file2_entry.get())
 
-        Button(root,text = "Enter", command= pptcheck).pack()
-    
-    elif(choice == 'image'):
+        Button(root, text="Enter", command=pptcheck, bg="white", width=15, border=1, font=("Calibri", 15)).place(x=220, y=530)
+
+    elif(choice == 'IMAGE'):
         def imagecheck():
-            compare_images(file1_entry.get(),file2_entry.get())
-        Button(root,text = "Enter", command= imagecheck).pack()
+            compare_images(file1_entry.get(), file2_entry.get())
+        Button(root, text="Enter", command=imagecheck, bg="white", width=15, border=1, font=("Calibri", 15)).place(x=220, y=530)
 
 
-
-myLabel = Label(root,text="Enter the choice :")
-myLabel.pack()
+Label(root, text="Enter your choice (PPT, TEXT, PDF, IMAGE)", font=("Calibri", 15), bg="white").place(x=120, y=130)
 
 
-choice_entry= Entry(root, width= 40)
-choice_entry.pack()
+choice_entry = Entry(root, width=20, font=("Calibri", 15))
+choice_entry.place(x=200, y=170)
 
-
-
-button = Button(root,text = "Enter", command= get_data).pack()
-
-
-
+button = Button(root, text="Enter", command=get_data, bg="white", width=15, border=1, font=("Calibri", 15)).place(x=220, y=220)
 
 root.mainloop()
