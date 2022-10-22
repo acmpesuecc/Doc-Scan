@@ -2,7 +2,7 @@
 from pdf2text import pdf2text
 import cv2
 import numpy as np
-from comparejpg import compare_images
+from compare_jpg import compare_images
 from tkinter import *
 
 root = Tk()
